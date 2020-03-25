@@ -1,5 +1,3 @@
-[TOC]
-
 ## longbit币币开放接口
 
 #### 接口签名
@@ -91,7 +89,7 @@ pricePrecision| true | Integer| 报价精度（小数点后位数）
 
 ###### 请求示例
 ```
-curl 'https://www.longbit.com/exchange/api/v1/common/symbols'
+    curl 'https://api.longbit.com/api/exchange/v1/common/symbols'
 ```
 ###### 返回示例
 
@@ -156,6 +154,7 @@ curl 'https://www.longbit.com/exchange/api/v1/common/symbols'
 ##### 1.资产余额
 ###### HTTP 请求
 > GET /exchange/api/v1/account/balance
+
 ###### 请求参数
 
 参数名称 | 是否必须 | 类型 | 描述
@@ -181,7 +180,7 @@ frozenAmount |true| number | 冻结余额
 
 ###### 请求示例
 ```
-curl 'https://www.longbit.com/exchange/api/v1/account/balance?symbol=GXC&accessKey=itqv7y3belss2efd&sign=41126aab5ef56aa23083a93c1a12aa42&timestamp=1560256563022'
+    curl 'https://api.longbit.com/api/exchange/v1/account/balance'
 ```
 ###### 返回示例
 
@@ -225,7 +224,9 @@ message | false| String | 返回代码
 data | true | Long | 订单id
 
 ###### 请求示例
-
+```
+    curl 'https://api.longbit.com/api/exchange/v1/orders/order'
+```
 ```
 {
     "accessKey":"qwewqeq",
@@ -267,7 +268,9 @@ message | false| String | 返回代码
 data | false | String | 订单id
 
 ###### 请求示例
-
+```
+    curl 'https://api.longbit.com/api/exchange/v1/orders/cancel'
+```
 ```
 {
     "accessKey":"qwewqeq",
@@ -291,6 +294,8 @@ data | false | String | 订单id
 ###### HTTP 请求
 
 > GET /exchange/api/v1/orders/opening
+
+> 该接口有掉用频率限制 3秒钟一次 【新增】
 
 ###### 请求参数
 
@@ -328,9 +333,8 @@ cancelTime|false|Long|撤销时间
 finishedTime|false|Long|最后的成交时间
 
 ###### 请求示例
-
 ```
-https://www.longbit.com/exchange/api/v1/orders/opening?symbol=GXC-USDT&side=buy&size=2&accessKey=itqv7y3belss2efd&sign=da79801081827b885f0c926e241c2166&timestamp=1560258622838
+    curl 'https://api.longbit.com/api/exchange/v1/orders/opening?symbol=GXC-USDT&side=buy&size=2&accessKey=itqv7y3belss2efd&sign=da79801081827b885f0c926e241c2166&timestamp=1560258622838'
 ```
 
 ###### 返回示例
@@ -377,8 +381,10 @@ https://www.longbit.com/exchange/api/v1/orders/opening?symbol=GXC-USDT&side=buy&
 ```
 
 
-#### 4.查询历史订单
+#### 4.查询历史订单 
 > GET /exchange/api/v1/orders/history
+
+> 该接口有掉用频率限制 3秒钟一次 【新增】
 
 ###### 请求参数
 
@@ -419,9 +425,8 @@ cancelTime|false|Long|撤销时间
 finishedTime|false|Long|最后的成交时间
 
 ###### 请求示例
-
 ```
-https://www.longbit.com/exchange/api/v1/orders/history?size=10&accessKey=itqv7y3belss2efd&createTimeEnd=1559577600000&sign=b58a5c73031fc752a0c4ac79105718c6&createTimeBegin=1559577600000&timestamp=1560261109490&states=3,4,5
+    curl 'https://api.longbit.com/api/exchange/v1/orders/history?size=10&accessKey=itqv7y3belss2efd&createTimeEnd=1559577600000&sign=b58a5c73031fc752a0c4ac79105718c6&createTimeBegin=1559577600000&timestamp=1560261109490&states=3,4,5'
 ```
 
 ###### 返回示例
@@ -517,11 +522,72 @@ https://www.longbit.com/exchange/api/v1/orders/history?size=10&accessKey=itqv7y3
   ]
 }
 ```
+###### 6.查询订单详情 【新增】
+> GET /exchange/api/v1/orders/getOrder
 
-###### 5.查询成交明细列表
+###### 请求参数
 
-###### 6.查询订单详情
+参数名称 | 是否必须 | 类型 | 描述
+---|---|---|---|
+accessKey | true| String | 开放api请求key
+timestamp | true | Long | 时间戳
+sign | true | String | 签名
+orderId | true | Long | 订单id
 
+###### 返回数据
+参数名称 | 是否必须 | 类型 | 描述
+---|---|---|---|
+message | false| String | 返回代码
+data | false | Object | 订单数据
+
+订单详情
+参数名称 | 是否必须 | 类型 | 描述
+---|---|---|---|
+id | true | Long | 订单id
+userId | true | Integer| 用户id
+orderType | true | String| 订单类型，market市价交易，limit限价交易
+side | true | String| 交易方向，buy，sell
+symbol | true | String| 交易对
+amount | true | number| 交易数量
+unitPrice | false | number| 限价交易单价
+completeAmount | true | number|订单中已成交的总数量
+completePrice | true | number| 订单中已成交的总价格
+completeFee | true | number| 已成交交易手续费总额
+status | true | Integer | 订单状态：1 已提交，2 部分成交，3，部分成交撤销，4 完全成交，5 全部撤销
+createTime|true|Long|提交订单时间
+cancelTime|false|Long|撤销时间
+finishedTime|false|Long|最后的成交时间
+
+###### 请求示例
+
+```
+    curl 'https://api.longbit.com/api/exchange/v1/orders/history?size=10&accessKey=itqv7y3belss2efd&sign=b58a5c73031fc752a0c4ac79105718c6&timestamp=1560261109490&orderId=1234'
+```
+
+
+###### 返回示例
+```
+{
+  "message": null,
+  "data": {
+      "id": 60449306,
+      "userId": 1,
+      "orderType": "limit",
+      "side": "buy",
+      "symbol": "GXC-USDT",
+      "amount": 10.000000000000000000,
+      "unitPrice": 1.092200000000000000,
+      "status": 4,
+      "completeAmount": 10.000000000000000000,
+      "completePrice": 10.913000000000000000,
+      "completeFee": 0.020000000000000000,
+      "createTime": 1559649361000,
+      "cancelTime": null,
+      "finishedTime": 1559649362000,
+      "remainAmount": 0
+    }
+}
+````
 ###### 7.查询订单成交明细
 
 #### 市场行情
@@ -559,7 +625,7 @@ volume | true | String | 报价
 ###### 请求示例
 
 ```
-curl 'https://www.longbit.com/exchange/api/market/depth?level=0&symbol=GXC-USDT&limit=1'
+    curl 'https://api.longbit.com/api/exchange/market/depth?level=0&symbol=GXC-USDT&limit=1'
 ```
 
 ###### 返回示例
@@ -610,7 +676,7 @@ timestamp| true| long| 成交时间
 ###### 请求示例
 
 ```
-curl 'https://www.longbit.com/exchange/api/market/trade?symbol=GXC-USDT'
+    curl 'https://api.longbit.com/api/exchange/market/trade?symbol=GXC-USDT'
 ```
 
 ###### 返回示例
@@ -657,7 +723,7 @@ timestamp| true| Long| 成交时间
 ###### 请求示例
 
 ```
-curl 'https://www.longbit.com/exchange/api/market/trade?symbol=GXC-USDT&size=10'
+    curl 'https://api.longbit.com/api/exchange/market/trade?symbol=GXC-USDT&size=10'
 ```
 
 ###### 返回示例
@@ -823,7 +889,100 @@ curl 'https://www.longbit.com/exchange/data/tick'
   ]
 }
 ```
+##### 交易对限额
+###### HTTP 请求
+> GET /exchange/api/v1/common/symbol/limit
 
+###### 请求参数
+参数名称 | 是否必须 | 类型 | 描述
+---|---|---|---|
+symbol | true | String | 交易对
+###### 返回数据
+参数名称 | 是否必须 | 类型 | 描述
+---|---|---|---|
+message | false| String | 返回代码
+data | false | Object | 成交记录
+
+参数名称 | 是否必须 | 类型 | 描述
+---|---|---|---|
+symbol | true| String | 交易对
+amountLimit| true| number| 最低交易量
+totalPriceLimit| true| number| 最低交易额
+###### 请求示例
+
+```
+    curl 'https://api.longbit.com/api/exchange/v1/common/symbol/limit?symbol=LBP-USDT'
+```
+
+###### 返回示例
+
+```
+{
+	"message": null,
+	"data": {
+		"symbol": "LBP-USDT",
+		"amountLimit": 1.00000000,
+		"totalPriceLimit": 0.10000000
+	}
+}
+```
+##### 获取K线信息
+###### HTTP 请求
+> GET /exchange/data/kline
+
+###### 请求参数
+参数名称 | 是否必须 | 类型 | 描述
+---|---|---|---|
+symbol | true | String | 交易对
+interval | true | String | 时间单位
+startTime | true | String | 起始时间
+endTime | true | String | 结束时间
+
+
+###### 返回数据
+参数名称 | 是否必须 | 类型 | 描述
+---|---|---|---|
+message | false| String | 返回代码
+data | false | Object | 成交记录
+
+参数名称 | 是否必须 | 类型 | 描述
+---|---|---|---|
+0 | true| String | 开始时间
+1| true| number| 结束时间
+2| true| number| 时间单位
+3| true| number| 开盘价
+4| true| number| 收盘价
+5| true| number| 最高价
+6| true| number| 最低价
+7| true| number| 基础币种计量的交易量
+8| true| number| 报价币种计量的交易量
+###### 请求示例
+
+```
+    curl 'https://www.longbit.com/exchange/data/kline?symbol=LBP-USDT&interval=1d&startTime=1543045629000&endTime=1574149689000'
+```
+
+###### 返回示例
+
+```
+{
+	"message": null,
+	"data": [
+		[1573142400000, 1573228800000, "1D", 0.1186700000, 0.1164000000, 0.1187300000, 0.1148900000, 44578053.20208497608141, 5254481.81456309267507],
+		[1573228800000, 1573315200000, "1D", 0.1163700000, 0.1080300000, 0.1173900000, 0.1042000000, 40913447.05675836550837, 4566734.10710963000000],
+		[1573315200000, 1573401600000, "1D", 0.1080400000, 0.1076200000, 0.1088100000, 0.1060900000, 43956263.30326637223060, 4733479.10718785800000],
+		[1573401600000, 1573488000000, "1D", 0.1076600000, 0.1071800000, 0.1082300000, 0.1060300000, 43013543.38850000000000, 4629025.25233846900000],
+		[1573488000000, 1573574400000, "1D", 0.1072000000, 0.1070500000, 0.1079700000, 0.1066700000, 42156655.64660186480186, 4515864.83038056400000],
+		[1573574400000, 1573660800000, "1D", 0.1070100000, 0.1069600000, 0.1073200000, 0.1044600000, 41889223.81970000000000, 4475148.62135865200000],
+		[1573660800000, 1573747200000, "1D", 0.1069700000, 0.1063300000, 0.1070900000, 0.1050000000, 42068679.35070201699505, 4486327.53452276300000],
+		[1573747200000, 1573833600000, "1D", 0.1063800000, 0.1058300000, 0.1065100000, 0.1051700000, 42856405.66230128844164, 4539832.94511928223192],
+		[1573833600000, 1573920000000, "1D", 0.1058300000, 0.0999700000, 0.1058800000, 0.0996200000, 44173917.54850000000000, 4549541.14626054400000],
+		[1573920000000, 1574006400000, "1D", 0.0999700000, 0.0970700000, 0.1008100000, 0.0966000000, 42649822.15694943663376, 4211178.38425866900000],
+		[1574006400000, 1574092800000, "1D", 0.0971000000, 0.0936300000, 0.0971000000, 0.0920700000, 43608377.81840000000000, 4119747.18012610400000],
+		[1574092800000, 1574179200000, "1D", 0.0936200000, 0.085170000000000000, 0.0938500000, 0.0838700000, 28129391.382122852963600000, 2569494.215637147000000000]
+	]
+}
+```
 
 #### 三、异常代码
 
