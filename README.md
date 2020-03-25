@@ -841,7 +841,7 @@ diffRate| true| String| 涨幅比例
 ###### 请求示例
 
 ```
-curl 'https://www.longbit.com/exchange/data/tick'
+curl 'https://www.longbit.io/exchange/data/tick'
 ```
 
 ###### 返回示例
@@ -959,7 +959,7 @@ data | false | Object | 成交记录
 ###### 请求示例
 
 ```
-    curl 'https://www.longbit.com/exchange/data/kline?symbol=LBP-USDT&interval=1d&startTime=1543045629000&endTime=1574149689000'
+    curl 'https://www.longbit.io/exchange/data/kline?symbol=LBP-USDT&interval=1d&startTime=1543045629000&endTime=1574149689000'
 ```
 
 ###### 返回示例
