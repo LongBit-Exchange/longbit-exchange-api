@@ -89,7 +89,7 @@ pricePrecision| true | Integer| 报价精度（小数点后位数）
 
 ###### 请求示例
 ```
-    curl 'https://api.longbit.com/api/exchange/v1/common/symbols'
+    curl 'https://api.longbit.io/api/exchange/v1/common/symbols'
 ```
 ###### 返回示例
 
@@ -180,7 +180,7 @@ frozenAmount |true| number | 冻结余额
 
 ###### 请求示例
 ```
-    curl 'https://api.longbit.com/api/exchange/v1/account/balance'
+    curl 'https://api.longbit.io/api/exchange/v1/account/balance'
 ```
 ###### 返回示例
 
@@ -225,7 +225,7 @@ data | true | Long | 订单id
 
 ###### 请求示例
 ```
-    curl 'https://api.longbit.com/api/exchange/v1/orders/order'
+    curl 'https://api.longbit.io/api/exchange/v1/orders/order'
 ```
 ```
 {
@@ -269,7 +269,7 @@ data | false | String | 订单id
 
 ###### 请求示例
 ```
-    curl 'https://api.longbit.com/api/exchange/v1/orders/cancel'
+    curl 'https://api.longbit.io/api/exchange/v1/orders/cancel'
 ```
 ```
 {
@@ -334,7 +334,7 @@ finishedTime|false|Long|最后的成交时间
 
 ###### 请求示例
 ```
-    curl 'https://api.longbit.com/api/exchange/v1/orders/opening?symbol=GXC-USDT&side=buy&size=2&accessKey=itqv7y3belss2efd&sign=da79801081827b885f0c926e241c2166&timestamp=1560258622838'
+    curl 'https://api.longbit.io/api/exchange/v1/orders/opening?symbol=GXC-USDT&side=buy&size=2&accessKey=itqv7y3belss2efd&sign=da79801081827b885f0c926e241c2166&timestamp=1560258622838'
 ```
 
 ###### 返回示例
@@ -426,7 +426,7 @@ finishedTime|false|Long|最后的成交时间
 
 ###### 请求示例
 ```
-    curl 'https://api.longbit.com/api/exchange/v1/orders/history?size=10&accessKey=itqv7y3belss2efd&createTimeEnd=1559577600000&sign=b58a5c73031fc752a0c4ac79105718c6&createTimeBegin=1559577600000&timestamp=1560261109490&states=3,4,5'
+    curl 'https://api.longbit.io/api/exchange/v1/orders/history?size=10&accessKey=itqv7y3belss2efd&createTimeEnd=1559577600000&sign=b58a5c73031fc752a0c4ac79105718c6&createTimeBegin=1559577600000&timestamp=1560261109490&states=3,4,5'
 ```
 
 ###### 返回示例
@@ -561,7 +561,7 @@ finishedTime|false|Long|最后的成交时间
 ###### 请求示例
 
 ```
-    curl 'https://api.longbit.com/api/exchange/v1/orders/history?size=10&accessKey=itqv7y3belss2efd&sign=b58a5c73031fc752a0c4ac79105718c6&timestamp=1560261109490&orderId=1234'
+    curl 'https://api.longbit.io/api/exchange/v1/orders/history?size=10&accessKey=itqv7y3belss2efd&sign=b58a5c73031fc752a0c4ac79105718c6&timestamp=1560261109490&orderId=1234'
 ```
 
 
@@ -625,7 +625,7 @@ volume | true | String | 报价
 ###### 请求示例
 
 ```
-    curl 'https://api.longbit.com/api/exchange/market/depth?level=0&symbol=GXC-USDT&limit=1'
+    curl 'https://api.longbit.io/api/exchange/market/depth?level=0&symbol=GXC-USDT&limit=1'
 ```
 
 ###### 返回示例
@@ -676,7 +676,7 @@ timestamp| true| long| 成交时间
 ###### 请求示例
 
 ```
-    curl 'https://api.longbit.com/api/exchange/market/trade?symbol=GXC-USDT'
+    curl 'https://api.longbit.io/api/exchange/market/trade?symbol=GXC-USDT'
 ```
 
 ###### 返回示例
@@ -723,7 +723,7 @@ timestamp| true| Long| 成交时间
 ###### 请求示例
 
 ```
-    curl 'https://api.longbit.com/api/exchange/market/trade?symbol=GXC-USDT&size=10'
+    curl 'https://api.longbit.io/api/exchange/market/trade?symbol=GXC-USDT&size=10'
 ```
 
 ###### 返回示例
@@ -841,7 +841,7 @@ diffRate| true| String| 涨幅比例
 ###### 请求示例
 
 ```
-curl 'https://www.longbit.io/exchange/data/tick'
+curl 'https://www.longbit.com/exchange/data/tick'
 ```
 
 ###### 返回示例
@@ -911,7 +911,7 @@ totalPriceLimit| true| number| 最低交易额
 ###### 请求示例
 
 ```
-    curl 'https://api.longbit.com/api/exchange/v1/common/symbol/limit?symbol=LBP-USDT'
+    curl 'https://api.longbit.io/api/exchange/v1/common/symbol/limit?symbol=LBP-USDT'
 ```
 
 ###### 返回示例
@@ -959,7 +959,7 @@ data | false | Object | 成交记录
 ###### 请求示例
 
 ```
-    curl 'https://www.longbit.io/exchange/data/kline?symbol=LBP-USDT&interval=1d&startTime=1543045629000&endTime=1574149689000'
+    curl 'https://www.longbit.com/exchange/data/kline?symbol=LBP-USDT&interval=1d&startTime=1543045629000&endTime=1574149689000'
 ```
 
 ###### 返回示例
