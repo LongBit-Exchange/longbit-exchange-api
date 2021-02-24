@@ -12,7 +12,7 @@
 设置参数值
 ```js
 accessKey = qeqwe21312
-accessSercret = nwekrk3h2ui3hri32hr
+accessSecret = nwekrk3h2ui3hri32hr
 timestamp = 1557839220283
 orderId = 23635556
 ```
@@ -71,12 +71,15 @@ public static String sign(Map<String, String> params) throws IOException {
     return DigestUtils.md5Hex(query.toString());
 }
 ```
+#### 域名
+> https://api.longbit.io
+>>  请科学上网
 
 #### 接口api
 ##### 基本信息
 ##### 1.获取所有交易对
 ###### HTTP 请求
-> GET /exchange/api/v1/common/symbols
+> GET /api/exchange/v1/common/symbols
 
 ###### 返回参数
 参数名称 | 是否必须 | 类型 | 描述
@@ -153,7 +156,7 @@ pricePrecision| true | Integer| 报价精度（小数点后位数）
 ##### 账户相关
 ##### 1.资产余额
 ###### HTTP 请求
-> GET /exchange/api/v1/account/balance
+> GET /api/exchange/v1/account/balance
 
 ###### 请求参数
 
@@ -202,7 +205,7 @@ frozenAmount |true| number | 冻结余额
 ##### 现货交易
 ##### 1.委托下单
 ###### HTTP 请求
-> POST /exchange/api/v1/orders/order
+> POST /api/exchange/v1/orders/order
 
 ###### 请求参数
 
@@ -250,7 +253,7 @@ data | true | Long | 订单id
 ```
 #### 2.撤销委托单
 ###### HTTP 请求
-> POST /exchange/api/v1/orders/cancel
+> POST /api/exchange/v1/orders/cancel
 
 ###### 请求参数
 
@@ -289,11 +292,52 @@ data | false | String | 订单id
 }
 ```
 
-#### 3.查询当前未成交订单
+#### 3.批量撤销委托单
+###### HTTP 请求
+> POST /api/exchange/v1/orders/cancels
+
+###### 请求参数
+
+参数名称 | 是否必须 | 类型 | 描述
+---|---|---|---|
+accessKey | true| String | 开放api请求key
+timestamp | true | Long | 时间戳
+orderIds | true | String | 委托单id，中间用“,”分割，最大长度50,示例： 123,456,789
+sign | true | String | 签名
+
+###### 返回数据
+参数名称 | 是否必须 | 类型 | 描述
+---|---|---|---|
+message | false| String | 返回代码
+data | false | String | 成功的订单id，中间用“,”分割， 示例： 123,456,789
+
+###### 请求示例
+```
+    curl 'https://api.longbit.io/api/exchange/v1/orders/cancels'
+```
+```
+{
+	"accessKey": "lbBSlfTCSq8iMynI",
+	"sign": "d7e23df2d344f5f36cd2bcf342a7b9d7",
+	"orderIds": "9396947,9396948",
+	"timestamp": "1599812206741"
+}
+```
+
+###### 返回示例
+
+```
+{
+	"message": null,
+	"data": "9396947,9396948"
+}
+```
+
+#### 4.查询当前未成交订单
 
 ###### HTTP 请求
 
-> GET /exchange/api/v1/orders/opening
+> GET /api/exchange/v1/orders/opening
 
 > 该接口有掉用频率限制 3秒钟一次 【新增】
 
@@ -381,8 +425,8 @@ finishedTime|false|Long|最后的成交时间
 ```
 
 
-#### 4.查询历史订单 
-> GET /exchange/api/v1/orders/history
+#### 5.查询历史订单 
+> GET /api/exchange/v1/orders/history
 
 > 该接口有掉用频率限制 3秒钟一次 【新增】
 
@@ -523,7 +567,7 @@ finishedTime|false|Long|最后的成交时间
 }
 ```
 ###### 6.查询订单详情 【新增】
-> GET /exchange/api/v1/orders/getOrder
+> GET /api/exchange/v1/orders/getOrder
 
 ###### 请求参数
 
@@ -561,9 +605,8 @@ finishedTime|false|Long|最后的成交时间
 ###### 请求示例
 
 ```
-    curl 'https://api.longbit.io/api/exchange/v1/orders/history?size=10&accessKey=itqv7y3belss2efd&sign=b58a5c73031fc752a0c4ac79105718c6&timestamp=1560261109490&orderId=1234'
+    curl 'https://api.longbit.io/api/exchange/v1/orders/getOrder?accessKey=itqv7y3belss2efd&sign=b58a5c73031fc752a0c4ac79105718c6&timestamp=1560261109490&orderId=1234'
 ```
-
 
 ###### 返回示例
 ```
@@ -588,12 +631,11 @@ finishedTime|false|Long|最后的成交时间
     }
 }
 ````
-###### 7.查询订单成交明细
 
 #### 市场行情
 ##### 1.交易深度
 ###### HTTP 请求
-> GET /exchange/api/market/depth
+> GET /api/exchange/market/depth
 
 ###### 请求参数
 
@@ -650,9 +692,9 @@ volume | true | String | 报价
     
 }
 ```
-##### 2.最新成交记录
+##### 8.最新成交记录
 ###### HTTP 请求
-> GET /exchange/api/market/trade
+> GET /api/exchange/market/trade
 
 ###### 请求参数
 参数名称 | 是否必须 | 类型 | 描述
@@ -696,9 +738,9 @@ timestamp| true| long| 成交时间
   ]
 }
 ```
-##### 3.近期成交记录
+##### 9.近期成交记录
 ###### HTTP 请求
-> GET /exchange/api/market/history/trade
+> GET /api/exchange/market/history/trade
 
 ###### 请求参数
 参数名称 | 是否必须 | 类型 | 描述
@@ -723,7 +765,7 @@ timestamp| true| Long| 成交时间
 ###### 请求示例
 
 ```
-    curl 'https://api.longbit.io/api/exchange/market/trade?symbol=GXC-USDT&size=10'
+    curl 'https://api.longbit.io/api/exchange/market/history/trade?symbol=GXC-USDT&size=10'
 ```
 
 ###### 返回示例
@@ -815,7 +857,7 @@ timestamp| true| Long| 成交时间
   ]
 }
 ```
-##### 4.交易行情(24小时)
+##### 10.交易行情(24小时)
 ###### HTTP 请求
 > GET /exchange/data/tick
 
@@ -841,7 +883,7 @@ diffRate| true| String| 涨幅比例
 ###### 请求示例
 
 ```
-curl 'https://www.longbit.com/exchange/data/tick'
+curl 'https://api.longbit.io/exchange/data/tick'
 ```
 
 ###### 返回示例
@@ -891,7 +933,7 @@ curl 'https://www.longbit.com/exchange/data/tick'
 ```
 ##### 交易对限额
 ###### HTTP 请求
-> GET /exchange/api/v1/common/symbol/limit
+> GET /api/exchange/v1/common/symbol/limit
 
 ###### 请求参数
 参数名称 | 是否必须 | 类型 | 描述
@@ -934,7 +976,7 @@ totalPriceLimit| true| number| 最低交易额
 参数名称 | 是否必须 | 类型 | 描述
 ---|---|---|---|
 symbol | true | String | 交易对
-interval | true | String | 时间单位
+interval | true | String | 时间单位1m:1分钟,5m:5分钟,15m:15分钟,30m:30分钟,60m:1小时,4h:4小时,1d:1天,1w:1周,1mon:1个月 
 startTime | true | String | 起始时间
 endTime | true | String | 结束时间
 
@@ -959,7 +1001,8 @@ data | false | Object | 成交记录
 ###### 请求示例
 
 ```
-    curl 'https://www.longbit.com/exchange/data/kline?symbol=LBP-USDT&interval=1d&startTime=1543045629000&endTime=1574149689000'
+主地址：
+    curl 'https://api.longbit.io/exchange/data/kline?symbol=LBP-USDT&interval=1d&startTime=1543045629000&endTime=1574149689000'
 ```
 
 ###### 返回示例
